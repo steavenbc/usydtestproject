@@ -14,3 +14,4 @@ Code base for University of Sydney- Mobile App Developer test project
 
 - 1. All code has been tested for Android devices. However iOS was not possible due to lack of access to a Mac OS based system.
 - 2. Maintaining visited link states, i.e. the checkbox ticking when a user visits the links has been achieved. However, restarting the app server will erase the data and bring it back to the initial state, where all check boxes are unticked.
+- 3. The provided content.json file has been placed in the data folder and the image assets have been placed in assets folder. Both folders were placed in the app folder.

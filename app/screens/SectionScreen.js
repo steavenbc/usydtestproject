@@ -11,8 +11,8 @@ function SectionScreen(props){
     let nextTitleIndex = titleIndex + 1;
     let renderNextPageLink = false;
     renderNextPageLink = nextTitleIndex < menuListData.length ? true:false;
-    const [expanded, setExpanded] = React.useState(false);
-    const handlePress = () => setExpanded(!expanded);
+    const [expanded, setExpanded] = React.useState(new Map());
+    const handlePress = (title) => setExpanded((expanded.has(title) && expanded.get(title))? new Map(expanded.set(title, false)): new Map(expanded.set(title,true)));
 
     let contentSource = data[pageTitle];
     let mainLinks = contentSource.introParagraph.links;
@@ -45,14 +45,14 @@ function SectionScreen(props){
         <FAQLink title={item.title} link={item.url} />
       );
 
-    const Accordion = ({title, answer, links, expand}) => (
+    const Accordion = ({title, answer, links}) => (
         <View style={styles.faqSection}>
-            <TouchableOpacity style={styles.row} onPress={handlePress}>
+            <TouchableOpacity style={styles.row} onPress={()=>handlePress(title)}>
                 <Text style={styles.faqTitle}>{title}</Text>
                 <Image style={styles.dropdownImage} source={require("../assets/dropdown-filter-item.png")}></Image>
             </TouchableOpacity>
             {
-                expand &&
+                (expanded.has(title) && expanded.get(title)) &&
                 <View style={styles.child}>
                     <Text>{answer}</Text>  
                     <FlatList data={links} renderItem={renderFaqLinkItem} keyExtractor={item=>item.title}/>  
@@ -62,7 +62,7 @@ function SectionScreen(props){
     );
 
     const renderFaqItem = ({ item }) => (
-        <Accordion title={item.question} answer={item.answer} links={item.additionalInfo} expand={expanded}/>
+        <Accordion title={item.question} answer={item.answer} links={item.additionalInfo}/>
       );
 
       const AppButton = ({ title }) => (
@@ -76,7 +76,7 @@ function SectionScreen(props){
             <Text style={styles.introText}>{contentSource.introParagraph.text}</Text>
             <FlatList data={mainLinks} renderItem={renderItem} keyExtractor={item=>item.title}/>
             <Text style={styles.faqHeader}>FAQ</Text>
-            <FlatList data={faqContent} renderItem={renderFaqItem} keyExtractor={item=>item.question}/>
+            <FlatList data={faqContent} renderItem={renderFaqItem} keyExtractor={item=>item.question}/> 
             {   
                 renderNextPageLink &&
                 <AppButton title={menuListData[nextTitleIndex]} />

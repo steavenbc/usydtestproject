@@ -13,7 +13,7 @@ function MainMenuScreen({navigation}) {
     //Individual List item rendering section
     const Item = ({ title }) => (
             <TouchableOpacity onPress={()=> {navigation.navigate('SectionScreen', {title:title}); handlePress(title)}} style={styles.touchArea}>
-                <CheckBox style={styles.checkbox} disabled={true} value={visitedPagesList.indexOf(title)>-1}/>
+                <CheckBox style={styles.checkbox} disabled={true} value={visitedPagesList.indexOf(title)>-1} tintColors={{ true: '#F15927', false: 'black' }}/>
                 <Text style={styles.title}>{title}</Text>
                 <Image style={styles.arrowImage} source={require("../assets/arrow-right.png")}/>
             </TouchableOpacity>

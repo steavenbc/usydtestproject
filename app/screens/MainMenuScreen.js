@@ -6,9 +6,12 @@ import CheckBox from '@react-native-community/checkbox';
 
 function MainMenuScreen({navigation}) {
 
+    const [visitedPagesList, updatePageList] = React.useState([]);
+
+    const handlePress = (title)=> updatePageList(visitedPagesList.concat(title))
     const Item = ({ title }) => (
-            <TouchableOpacity onPress={()=> navigation.navigate('SectionScreen', {title:title})} style={styles.touchArea}>
-                <CheckBox style={styles.checkbox}/>
+            <TouchableOpacity onPress={()=> {navigation.navigate('SectionScreen', {title:title}); handlePress(title)}} style={styles.touchArea}>
+                <CheckBox style={styles.checkbox} disabled={true} value={visitedPagesList.indexOf(title)>-1}/>
                 <Text style={styles.title}>{title}</Text>
                 <Image style={styles.arrowImage} source={require("../assets/arrow-right.png")}/>
             </TouchableOpacity>

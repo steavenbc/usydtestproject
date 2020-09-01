@@ -16,6 +16,8 @@ function SectionScreen(props){
 
     let contentSource = data[pageTitle];
     let mainLinks = contentSource.introParagraph.links;
+
+    //Main Link rendering section
     const Item = ({title, link}) => (
         <View style={styles.primaryLinkItem}>
             <TouchableOpacity onPress={()=> Linking.openURL(link)} style={styles.primaryLink}>
@@ -25,6 +27,7 @@ function SectionScreen(props){
         </View>
     );
 
+    //MainLink section
     const renderItem = ({ item }) => (
         <Item title={item.title} link={item.uri} />
       );
@@ -32,6 +35,7 @@ function SectionScreen(props){
     let faqContent = contentSource.FAQItems;
     let faqLinks = faqContent.additionalInfo;
 
+    //FAQ Link Items rendering
     const FAQLink = ({title, link}) => (
         <View style={styles.primaryLinkItem}>
             <TouchableOpacity onPress={()=> Linking.openURL(link)} style={styles.primaryLink}>
@@ -41,10 +45,12 @@ function SectionScreen(props){
         </View>
     );
 
+    //FAQ Link Items section
     const renderFaqLinkItem = ({ item }) => (
         <FAQLink title={item.title} link={item.url} />
       );
 
+      //Accordion-Dropdown section
     const Accordion = ({title, answer, links}) => (
         <View style={styles.faqSection}>
             <TouchableOpacity style={styles.row} onPress={()=>handlePress(title)}>
@@ -61,10 +67,12 @@ function SectionScreen(props){
         </View>
     );
 
+    //FAQ individual section
     const renderFaqItem = ({ item }) => (
         <Accordion title={item.question} answer={item.answer} links={item.additionalInfo}/>
       );
 
+      //Button to next page
       const AppButton = ({ title }) => (
         <TouchableOpacity onPress={()=> props.navigation.navigate('SectionScreen', {title:title})} style={styles.appButtonContainer}>
           <Text style={styles.appButtonText}>{title}</Text>

@@ -9,6 +9,8 @@ function MainMenuScreen({navigation}) {
     const [visitedPagesList, updatePageList] = React.useState([]);
 
     const handlePress = (title)=> updatePageList(visitedPagesList.concat(title))
+
+    //Individual List item rendering section
     const Item = ({ title }) => (
             <TouchableOpacity onPress={()=> {navigation.navigate('SectionScreen', {title:title}); handlePress(title)}} style={styles.touchArea}>
                 <CheckBox style={styles.checkbox} disabled={true} value={visitedPagesList.indexOf(title)>-1}/>
@@ -16,11 +18,15 @@ function MainMenuScreen({navigation}) {
                 <Image style={styles.arrowImage} source={require("../assets/arrow-right.png")}/>
             </TouchableOpacity>
       );
+
+      //List Item section
     const renderItem = ({ item }) => (
         <Item title={item} />
       );
     let menuListData=Object.keys(data);
 
+
+    //List Item separator
     const separator = () =>(
         <View
             style={{
